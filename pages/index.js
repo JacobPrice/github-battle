@@ -1,5 +1,5 @@
-const React = require('react')
-const Popular = require('../components/Popular')
+import React from 'react'
+import Popular from '../components/Popular'
 
 class App extends React.Component {
   render() {
@@ -9,6 +9,12 @@ class App extends React.Component {
         <style jsx global>{`
           body {
             font-family:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+          }
+          ul {
+            padding: 0;
+          }
+          li {
+            list-style-type: none;
           }
         `}</style>
       </div>
