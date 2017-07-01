@@ -16,17 +16,6 @@ function SelectLanguage (props) {
           </li>
         )
       })}
-      <style jsx>{`
-  .languages {
-    display: flex;
-    justify-content: center;
-  }
-  .languages li {
-    margin: 10px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-`}</style>
     </ul>
   )
 }
@@ -53,28 +42,6 @@ function RepoGrid (props) {
           </li>
         )
       })}
-      <style jsx>{`
-        .popular-list {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-around;
-        }
-        .popular-item {
-          margin-left: 20px;
-          text-align: center;
-        }
-        .space-list-items {
-          margin-bottom: 7px;
-        }
-        .avatar {
-          width: 150px;
-          border-radius: 50%;
-        }
-        .popular-rank {
-          font-size: 20px;
-          margin: 10px;
-        }
-      `}</style>
     </ul>
   )
 }
@@ -127,42 +94,6 @@ class Popular extends React.Component {
         {!this.state.repos
           ? <p className="loader">LOADING!</p>
           : <RepoGrid repos={this.state.repos} />}
-        <style jsx>{`
-        .loader,
-        .loader:after {
-          border-radius: 50%;
-          width: 10em;
-          height: 10em;
-        }
-        .loader {
-          margin: 60px auto;
-          font-size: 10px;
-          position: relative;
-          text-indent: -9999em;
-          border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-          border-right: 1.1em solid rgb(208, 2, 27);
-          border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-          border-left: 1.1em solid #ffffff;
-          transform: translateZ(0);
-          animation: load8 1.1s infinite linear;
-        }
-        @-webkit-keyframes load8 {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-        @keyframes load8 {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-        `}</style>
       </div>
     )
   }

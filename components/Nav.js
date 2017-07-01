@@ -1,41 +1,55 @@
 import React from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
+import styled from 'styled-components'
 
+const NavContainer  = styled.ul`
+  display: flex;
+`
+const NavItem = styled.li`
+  margin-right: 15px;
+  list-style: none;
+  color: #d0021b;
+  font-weight: ${props => props.active ? 'bold' : ''};
+`
+const Anchor = styled.a`
+  color: inherit;
+`
 
 class Nav extends React.Component {
+  constructor(props) {
+    super(props)
+  this.state = {
+    nav: [{
+      path: '/',
+      name: 'Home'
+    }, {
+      path: '/popular',
+      name: 'Popular',
+    }, {
+      path: '/battle',
+      name: 'Battle'
+    }],
+    path: `/`
+  }
+}
+componentDidMount() {
+  this.setState({
+    path: location.pathname
+  })
+}
   render() {
     return (
-      <ul className='nav'>
-        <li>
-          <Link href="/"><a>Home</a></Link>
-        </li>
-        <li>
-          <Link href="/popular"><a>Popular</a></Link>
-        </li>
-        <li>
-          <Link href="/battle"><a>Battle</a></Link>
-        </li>
-        <style jsx>{`
-          ul {
-            padding: 0;
-          }
-          li {
-            list-style-type: none;
-          }
-          .nav {
-            display: flex;
-          }
+      <NavContainer>
+        {this.state.nav.map((props) => {
+          return <NavItem section={props.path} active={this.state.path === props.path} >
+            <Link href={props.path}>
+              <Anchor>{props.name}</Anchor>
+            </Link>
+          </NavItem>
+        })}
 
-          .nav li {
-            margin-right: 15px;
-          }
-          a {
-            text-decoration: none;
-            color: #d0021b;
-          }
-        `}</style>
-      </ul>
+    </NavContainer>
     )
   }
 }
