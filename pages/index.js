@@ -1,15 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
 import Page from '../components/Page'
+import {Button,Column} from '../components/Elements'
+
 
 class Home extends React.Component {
   render() {
     return (
       <Page>
-        <div className="home-container">
+        <Column center>
           <h1>Github Battle ⚔️🛡️</h1>
-          <Link href="/battle"><span className="button">test</span></Link>
-        </div>
+          <Link href="/battle"><Button>test</Button></Link>
+        </Column>
       </Page>
     )
   }
