@@ -4,39 +4,66 @@ import queryString from 'query-string'
 import api from '../utils/api'
 import {Loader,Row} from '../components/Elements'
 import Link from 'next/link'
+import PlayerPreview from '../components/PlayerPreview'
 
 
 
-const Player = (props) => {
+
+function Profile (props) {
+  var info = props.info;
+
+  return (
+    <PlayerPreview username={info.login} avatar={info.avatar_url}>
+      <ul className='space-list-items'>
+        {info.name && <li>{info.name}</li>}
+        {info.location && <li>{info.location}</li>}
+        {info.company && <li>{info.company}</li>}
+        <li>Followers: {info.followers}</li>
+        <li>Following: {info.following}</li>
+        <li>Public Repos: {info.public_repos}</li>
+        {info.blog && <li><a href={info.blog}>{info.blog}</a></li>}
+      </ul>
+    </PlayerPreview>
+  )
+}
+
+Profile.propTypes = {
+  info: PropTypes.object.isRequired,
+}
+
+function Player (props) {
   return (
     <div>
-      <h1>{props.label}</h1>
-      <h3 style={{textAlign: 'center'}}>Score: {props.score} </h3>
+      <h1 className='header'>{props.label}</h1>
+      <h3 style={{textAlign: 'center'}}>Score: {props.score}</h3>
+      <Profile info={props.profile} />
     </div>
   )
 }
+
 Player.propTypes = {
   label: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 }
-class Results extends React.Component {
-constructor(props) {
-  super(props)
-  this.state = {
-    winner: null,
-    loser: null,
-    error: null,
-    loading: true
-  }
-}
-componentDidMount() {
-  let players = queryString.parse(this.props.url.query.name)
 
-  api.battle([
-    players.playerOneName,
-    players.playerTwoName
-  ]).then(function (players) {
+class Results extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      winner: null,
+      loser: null,
+      error: null,
+      loading: true,
+    }
+  }
+  componentDidMount() {
+    var players = queryString.parse(this.props.url.query.name);
+
+    api.battle([
+      players.playerOneName,
+      players.playerTwoName
+    ]).then(function (players) {
       if (players === null) {
         return this.setState(function () {
           return {
@@ -45,6 +72,7 @@ componentDidMount() {
           }
         });
       }
+
       this.setState(function () {
         return {
           error: null,
@@ -56,34 +84,37 @@ componentDidMount() {
     }.bind(this));
   }
   render() {
-    let error = this.state.error
-    let winner = this.state.winner
-    let loser  = this.state.loser
-    let loading = this.state.loading
+    var error = this.state.error;
+    var winner = this.state.winner;
+    var loser = this.state.loser;
+    var loading = this.state.loading;
+
     if (loading === true) {
-      return <Loader>Loading...</Loader>
+      return <p>Loading!</p>
     }
+
     if (error) {
       return (
         <div>
           <p>{error}</p>
-        <Link href='/battle'>Reset</Link>
+          <Link to='/battle'>Reset</Link>
         </div>
       )
-
     }
-    console.log( winner,loser)
+
     return (
-<Row>
-  <Player
-    label='Winner'
-    score={winner.score}
-    profile={winner.profile} />
-  <Player
-    label='Loser'
-    score={loser.score}
-    profile={loser.profile} />
-</Row>
+      <Row className='row'>
+        <Player
+          label='Winner'
+          score={winner.score}
+          profile={winner.profile}
+        />
+        <Player
+          label='Loser'
+          score={loser.score}
+          profile={loser.profile}
+        />
+      </Row>
     )
   }
 }

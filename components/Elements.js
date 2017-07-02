@@ -102,7 +102,16 @@ module.exports = {
     left: 5.1em;
     transform-origin: 0px 5.1em;
     animation: ${loading} 2s infinite ease;
+    }`,
+   Reset : styled.button`
+    border: none;
+    background: transparent;
+    color: #d0021b;
+    display: block;
+    width: 100%;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
     }
-
     `
 }

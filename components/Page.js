@@ -17,9 +17,9 @@ export default ({ children }) => (
 
       { children }
 
-      <footer>
+      {/* <footer>
         {'Footer'}
-      </footer>
+      </footer> */}
     </Global>
   </div>
 )

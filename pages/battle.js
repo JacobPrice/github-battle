@@ -2,44 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Page from '../components/Page'
 import Link from 'next/link'
-import {Column, Row, Button, Avatar} from '../components/Elements'
+import {Column, Row, Button, Avatar, Reset} from '../components/Elements'
+import PlayerPreview from '../components/PlayerPreview'
 import styled from 'styled-components'
 
-const Reset = styled.button`
-border: none;
-background: transparent;
-color: #d0021b;
-display: block;
-width: 100%;
-text-align: center;
-&:hover {
-  cursor: pointer;
-}
-`
-function PlayerPreview (props) {
-  return (
-    <div>
-      <Column>
-        <Avatar
-          src={props.avatar}
-          alt={'Avatar for ' + props.username}
-        />
-        <h2 className='username'>@{props.username}</h2>
-      </Column>
-      <Reset
-        onClick={props.onReset.bind(null, props.id)}>
-        Reset
-      </Reset>
-    </div>
-  )
-}
-
-PlayerPreview.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired
-};
 
 class PlayerInput extends React.Component {
   constructor(props) {
