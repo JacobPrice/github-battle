@@ -1,11 +1,35 @@
 import React from 'react'
+import Page from '../components/Page'
 import PropTypes from 'prop-types'
 import api from '../utils/api'
-
+import styled from 'styled-components'
+import {Avatar, Loader} from '../components/Elements'
+const Languages = styled.ul`
+display: flex;
+justify-content: center;
+ li {
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+`
+const PopularList = styled.ul`
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+`
+const PopularItem = styled.li`
+margin: 20px;
+text-align: center;
+`
+const PopularRank = styled.div`
+font-size: 20px;
+margin: 10px;
+`
 function SelectLanguage (props) {
   var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python']
   return (
-    <ul className='languages'>
+    <Languages>
       {languages.map(function (lang) {
         return (
           <li
@@ -16,20 +40,20 @@ function SelectLanguage (props) {
           </li>
         )
       })}
-    </ul>
+    </Languages>
   )
 }
 
 function RepoGrid (props) {
   return (
-    <ul className='popular-list'>
+    <PopularList>
       {props.repos.map(function (repo, index) {
         return (
-          <li key={repo.name} className='popular-item'>
-            <div className='popular-rank'>#{index + 1}</div>
+          <PopularItem key={repo.name} >
+            <PopularRank>#{index + 1}</PopularRank>
             <ul className='space-list-items'>
               <li>
-                <img
+                <Avatar
                   className='avatar'
                   src={repo.owner.avatar_url}
                   alt={'Avatar for ' + repo.owner.login}
@@ -39,10 +63,10 @@ function RepoGrid (props) {
               <li>@{repo.owner.login}</li>
               <li>{repo.stargazers_count} stars</li>
             </ul>
-          </li>
+          </PopularItem>
         )
       })}
-    </ul>
+    </PopularList>
   )
 }
 
@@ -92,11 +116,20 @@ class Popular extends React.Component {
           selectedLanguage={this.state.selectedLanguage}
           onSelect={this.updateLanguage} />
         {!this.state.repos
-          ? <p className="loader">LOADING!</p>
+          ? <Loader>LOADING!</Loader>
           : <RepoGrid repos={this.state.repos} />}
       </div>
     )
   }
 }
+class Index extends React.Component {
+  render() {
+    return (
+      <Page>
+        <Popular />
+      </Page>
+    )
+  }
+}
 
-module.exports = Popular
+export default Index
