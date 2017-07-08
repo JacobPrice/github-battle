@@ -11,7 +11,7 @@ const loading = keyframes`
 module.exports = {
     Global : styled.div`
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
-    li {
+    ul, li {
       list-style: none;
     }`,
    Button : styled.button`

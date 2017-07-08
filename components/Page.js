@@ -14,12 +14,7 @@ export default ({ children }) => (
       <header>
         <Nav />
       </header>
-
       { children }
-
-      {/* <footer>
-        {'Footer'}
-      </footer> */}
     </Global>
   </div>
 )

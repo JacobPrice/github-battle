@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Page from '../components/Page'
 import queryString from 'query-string'
 import api from '../utils/api'
 import {Loader,Row} from '../components/Elements'
@@ -10,7 +11,7 @@ import PlayerPreview from '../components/PlayerPreview'
 
 
 function Profile (props) {
-  var info = props.info;
+  let info = props.info;
 
   return (
     <PlayerPreview username={info.login} avatar={info.avatar_url}>
@@ -58,7 +59,7 @@ class Results extends React.Component {
     }
   }
   componentDidMount() {
-    var players = queryString.parse(this.props.url.query.name);
+    // let players = queryString.parse(this.props.url.query.name);
 
     api.battle([
       players.playerOneName,
@@ -84,10 +85,10 @@ class Results extends React.Component {
     }.bind(this));
   }
   render() {
-    var error = this.state.error;
-    var winner = this.state.winner;
-    var loser = this.state.loser;
-    var loading = this.state.loading;
+    let error = this.state.error;
+    let winner = this.state.winner;
+    let loser = this.state.loser;
+    let loading = this.state.loading;
 
     if (loading === true) {
       return <p>Loading!</p>
@@ -119,4 +120,10 @@ class Results extends React.Component {
   }
 }
 
-export default Results
+export default () => {
+  return (
+<Page>
+  {console.log(this)}
+</Page>
+  )
+}
